@@ -1,5 +1,5 @@
 library(ggplot2)
-#install.packages("dplyer")
+#install.packages("dplyr")
 library(dplyr)
 library(viridis)
 
