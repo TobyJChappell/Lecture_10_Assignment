@@ -11,16 +11,20 @@ cut_group <- diamonds %>% group_by(Cut) %>%
   summarise(count = n()) %>%
   mutate(per=count/sum(count)) %>% 
   ungroup()
+clarity_group <- diamonds %>% group_by(Clarity,Cut) %>%
+  summarise(count = n()) %>%
+  group_by(Clarity) %>%
+  mutate(per=count/sum(count)) %>% 
+  ungroup()
 
 #Proportion of diamonds in the set of each cut
 
-#Side-by-Side Bar
+#Side-by-Side Bars
 ggplot(data=diamonds,aes(x=Cut,fill=Cut)) +
   geom_bar() +
   ggtitle("Proportion of Diamonds by Cut") +
   ylab(label="Number of Diamonds") +
   scale_fill_viridis_d()
-  
 
 #Stacked Bar
 ggplot(data=cut_group,aes(x="",y=per,fill=Cut)) +
@@ -43,4 +47,30 @@ ggplot(cut_group, aes(x= "", y = per, fill=Cut)) +
   
 #Does proportion change with clarity
 
+#Side-by-Side Bars
+ggplot(data=diamonds,aes(x=Clarity,y="",fill=Cut)) +
+  geom_bar(stat="identity") +
+  xlab("Clarity") + 
+  ylab("Number of Diamonds") +
+  ggtitle("Proportion of Diamonds by Cut for each Clarity") +
+  scale_fill_viridis_d()
 
+#Stacked Bars
+ggplot(data=clarity_group,aes(x=Clarity,y=per,fill=Cut)) +
+  geom_bar(stat="identity") +
+  xlab("Clarity") + 
+  ylab("Percent") +
+  ggtitle("Proportion of Diamonds by Cut for each Clarity") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_viridis_d()
+
+#Pie Charts
+ggplot(clarity_group, aes(x= "", y = per, fill=Cut)) + 
+  geom_col() +
+  coord_polar("y", start=0) +
+  facet_wrap(~Clarity)  +
+  ggtitle("Proportion of Diamonds by Cut for each Clarity") +
+  xlab("") +
+  ylab("") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_viridis_d()
