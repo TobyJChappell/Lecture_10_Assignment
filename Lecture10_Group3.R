@@ -47,7 +47,24 @@ ggplot(cut_group, aes(x= "", y = per, fill=Cut)) +
   
 #Does proportion change with clarity
 
-#Side-by-Side Bars
+#Side-by-Side Bars (Quantity)
+ggplot(data=diamonds,aes(x=Clarity,fill=Cut)) +
+  geom_bar(position="dodge") +
+  xlab("Clarity") + 
+  ylab("Number of Diamonds") +
+  ggtitle("Proportion of Diamonds by Cut for each Clarity") +
+  scale_fill_viridis_d()
+
+#Side-by-Side Bars (Percent)
+ggplot(data=clarity_group,aes(x=Clarity,y=per,fill=Cut)) +
+  geom_bar(stat="identity",position="dodge") +
+  xlab("Clarity") + 
+  ylab("Percent") +
+  ggtitle("Proportion of Diamonds by Cut for each Clarity") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_viridis_d()
+
+#Stacked Bars (Quantity)
 ggplot(data=diamonds,aes(x=Clarity,y="",fill=Cut)) +
   geom_bar(stat="identity") +
   xlab("Clarity") + 
@@ -55,7 +72,7 @@ ggplot(data=diamonds,aes(x=Clarity,y="",fill=Cut)) +
   ggtitle("Proportion of Diamonds by Cut for each Clarity") +
   scale_fill_viridis_d()
 
-#Stacked Bars
+#Stacked Bars (Percent)
 ggplot(data=clarity_group,aes(x=Clarity,y=per,fill=Cut)) +
   geom_bar(stat="identity") +
   xlab("Clarity") + 
