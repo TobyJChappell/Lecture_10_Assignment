@@ -19,6 +19,16 @@ clarity_group <- diamonds %>% group_by(Clarity,Cut) %>%
 
 #Proportion of diamonds in the set of each cut
 
+#Pie
+ggplot(cut_group, aes(x= "", y = per, fill=Cut)) + 
+  geom_col() +
+  coord_polar("y", start=0) +
+  ggtitle("Proportion of Diamonds by Cut") +
+  xlab("") +
+  ylab("") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_viridis_d()
+
 #Side-by-Side Bars
 ggplot(data=diamonds,aes(x=Cut,fill=Cut)) +
   geom_bar() +
@@ -34,18 +44,19 @@ ggplot(data=cut_group,aes(x="",y=per,fill=Cut)) +
   ggtitle("Proportion of Diamonds by Cut") +
   scale_y_continuous(labels = scales::percent) +
   scale_fill_viridis_d()
+  
+#Does proportion change with clarity
 
-#Pie
-ggplot(cut_group, aes(x= "", y = per, fill=Cut)) + 
+#Pie Charts
+ggplot(clarity_group, aes(x= "", y = per, fill=Cut)) + 
   geom_col() +
   coord_polar("y", start=0) +
-  ggtitle("Proportion of Diamonds by Cut") +
+  facet_wrap(~Clarity)  +
+  ggtitle("Proportion of Diamonds by Cut for each Clarity") +
   xlab("") +
   ylab("") +
   scale_y_continuous(labels = scales::percent) +
   scale_fill_viridis_d()
-  
-#Does proportion change with clarity
 
 #Side-by-Side Bars (Quantity)
 ggplot(data=diamonds,aes(x=Clarity,fill=Cut)) +
@@ -78,16 +89,5 @@ ggplot(data=clarity_group,aes(x=Clarity,y=per,fill=Cut)) +
   xlab("Clarity") + 
   ylab("Percent") +
   ggtitle("Proportion of Diamonds by Cut for each Clarity") +
-  scale_y_continuous(labels = scales::percent) +
-  scale_fill_viridis_d()
-
-#Pie Charts
-ggplot(clarity_group, aes(x= "", y = per, fill=Cut)) + 
-  geom_col() +
-  coord_polar("y", start=0) +
-  facet_wrap(~Clarity)  +
-  ggtitle("Proportion of Diamonds by Cut for each Clarity") +
-  xlab("") +
-  ylab("") +
   scale_y_continuous(labels = scales::percent) +
   scale_fill_viridis_d()
