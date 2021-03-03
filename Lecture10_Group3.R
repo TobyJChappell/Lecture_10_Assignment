@@ -20,7 +20,7 @@ clarity_group <- diamonds %>% group_by(Clarity,Cut) %>%
 #Proportion of diamonds in the set of each cut
 
 #Pie
-ggplot(cut_group, aes(x= "", y = per, fill=Cut)) + 
+ggplot(data=cut_group, aes(x= "", y = per, fill=Cut)) + 
   geom_col() +
   coord_polar("y", start=0) +
   ggtitle("Proportion of Diamonds by Cut") +
@@ -32,7 +32,7 @@ ggplot(cut_group, aes(x= "", y = per, fill=Cut)) +
 #Side-by-Side Bars
 ggplot(data=diamonds,aes(x=Cut,fill=Cut)) +
   geom_bar() +
-  ggtitle("Proportion of Diamonds by Cut") +
+  ggtitle("Frequency of Diamonds by Cut") +
   ylab(label="Number of Diamonds") +
   scale_fill_viridis_d()
 
@@ -63,7 +63,7 @@ ggplot(data=diamonds,aes(x=Clarity,fill=Cut)) +
   geom_bar(position="dodge") +
   xlab("Clarity") + 
   ylab("Number of Diamonds") +
-  ggtitle("Proportion of Diamonds by Cut for each Clarity") +
+  ggtitle("Frequency of Diamonds by Cut for each Clarity") +
   scale_fill_viridis_d()
 
 #Side-by-Side Bars (Percent)
@@ -80,7 +80,7 @@ ggplot(data=diamonds,aes(x=Clarity,y="",fill=Cut)) +
   geom_bar(stat="identity") +
   xlab("Clarity") + 
   ylab("Number of Diamonds") +
-  ggtitle("Proportion of Diamonds by Cut for each Clarity") +
+  ggtitle("Frequency of Diamonds by Cut for each Clarity") +
   scale_fill_viridis_d()
 
 #Stacked Bars (Percent)
